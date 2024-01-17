@@ -1,43 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item</title>
-    <link rel="stylesheet" href="">
+  <title>Item</title>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <header>
-        <%- include('./partials/header') %>
-        <h1>Item Page</h1>
-    </header>
+  <%- include('./partials/header') %>
+  <h1>Item Page</h1>
 
-    <!-- Create, Creating an Item/description -->
-    <form id="createForm" action="/item" method="POST">
-        <input type="text" name="name" placeholder="Item Name" required>
-        <input type="text" name="description" placeholder="Item Description" required>
-        <button type="submit">Create Item</button>
-    </form>
+  <!-- Create -->
+  <form id="createForm" action="/item" method="POST">
+    <input type="text" name="name" placeholder="Item name" required>
+    <input type="text" name="description" placeholder="Item description" required>
+    <button type="submit">Create Item</button>
+  </form>
 
-    <!-- Update -->
-    <form id="createForm" action="/item/update" method="POST">
-        <input type="text" name="name" id="updateName" placeholder="New Item Name" required>
-        <input type="text" name="description" id="updateDescription" placeholder="Item Description" required>
-        <button type="submit">Create Item</button>
-    </form>
+  <!-- Update -->
+  <form id="updateForm" action="/item/update/" method="POST">
+    <input type="hidden" name="_id" id="updateId"> <!--Bundle ID with the form data-->
+    <input type="text" name="name" id="updateName" placeholder="New item name" required>
+    <input type="text" name="description" id="updateDescription" placeholder="New item description" required>
+    <button type="submit">Update Item</button>
+  </form>
 
+  <!-- Display items -->
+  <ul id="itemList">
+    <% items.forEach((item) => { %>
+      <li>
+        <span><%= item.name %>: <%= item.description %></span>
+        <button onclick="editItem('<%= item._id %>', '<%= item.name %>', '<%= item.description %>')">Edit</button>
+        <button onclick="deleteItem('<%= item._id %>')">Delete</button>
+      </li>
+    <% }); %>
+  </ul>
 
-    <!-- Item List -->
-    <ul id="itemList">
-        <% items.forEach((item) => { %>
-        <li>
-            <span><%= item.name %> : <%= item.description  %></span>
-            <button onClick="editItem('<%= item._id %>', '<%= item.name %>', '<%= item.description  %>')">Edit</button>
-            <button onClick="deleteItem('<%= item._id %>')">Delete</button>
-        </li>
-        <% }); %>
-    </ul>
-    
-    <script src=""></script>
+  <script src="/js/script.js"></script>
+
 </body>
 </html>
